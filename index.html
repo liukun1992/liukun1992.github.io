@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>liukun</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #232631;
+    }
+
+    .page-one img {
+      width: 100%;
+    }
+
+    .content {
+      padding: 0 15vw 0;
+    }
+
+    .top {
+      /* display: none; */
+      position: fixed;
+      right: 5vw;
+      bottom: 50px;
+
+      width: 50px;
+      height: 50px;
+
+      border-radius: 50%;
+
+      opacity: 1;
+      transition-delay: 1s;
+      transition: all .3s;
+      cursor: pointer;
+    }
+
+    .top.fade {
+      opacity: 0.3;
+    }
+
+    .top:hover,
+    .top.fade:hover {
+      opacity: 1;
+    }
+
+    .phone {
+      position: fixed;
+      right: 5vw;
+      bottom: 125px;
+
+      width: 50px;
+      height: 50px;
+
+      border-radius: 50%;
+
+      opacity: 1;
+      transition-delay: 1s;
+      transition: all .3s;
+      cursor: pointer;
+    }
+
+    .phone.fade {
+      opacity: 0.3;
+    }
+
+    .phone:hover,
+    .phone.fade:hover {
+      opacity: 1;
+    }
+
+    @media screen and (max-width: 500px) {
+      .content {
+        padding: 0 2vw 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-one">
+    <img src="imgs/0.png" alt="">
+  </div>
+  <div class="content"></div>
+  <div class="top fade">
+    <svg t="1628469420176" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3042" width="100%" height="100%"><path d="M633.9584 527.36l-92.672-86.1184v243.5072c0 15.872-12.9024 28.7744-28.8768 28.7744-15.9744 0-28.8768-12.9024-28.8768-28.7744V440.4224l-93.696 87.04c-18.2272 16.896-47.8208 16.896-66.048 0-18.2272-16.896-18.2272-44.4416 0-61.3376l154.112-143.1552c9.3184-8.704 21.7088-12.8 33.9968-12.4928 12.288-0.2048 24.576 3.7888 33.9968 12.4928l154.112 143.1552c18.2272 16.896 18.2272 44.4416 0 61.3376-18.2272 16.896-47.7184 16.896-66.048-0.1024zM512 137.6256c-206.7456 0-374.3744 167.6288-374.3744 374.3744S305.2544 886.3744 512 886.3744 886.3744 718.7456 886.3744 512 718.7456 137.6256 512 137.6256zM512 972.8C257.536 972.8 51.2 766.464 51.2 512S257.536 51.2 512 51.2s460.8 206.336 460.8 460.8-206.336 460.8-460.8 460.8z" p-id="3043" fill="#98A2B2"></path></svg>
+  </div>
+  <div class="phone fade">
+    <a href="tel:+8613552939235">
+      <svg width="100%" height="100%" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="27" height="27" rx="13.5" fill="white" fill-opacity="0.9"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.3333 8.66732H10.6667L10.6667 19.334H17.3333V8.66732ZM10.6667 7.33398C9.9303 7.33398 9.33334 7.93094 9.33334 8.66732V19.334C9.33334 20.0704 9.9303 20.6673 10.6667 20.6673H17.3333C18.0697 20.6673 18.6667 20.0704 18.6667 19.334V8.66732C18.6667 7.93094 18.0697 7.33398 17.3333 7.33398H10.6667Z" fill="#050D33"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.33334 15.334H18.6667V18.6673C18.6667 19.7719 17.7712 20.6673 16.6667 20.6673H11.3333C10.2288 20.6673 9.33334 19.7719 9.33334 18.6673V15.334ZM14 19C14.5523 19 15 18.5523 15 18C15 17.4477 14.5523 17 14 17C13.4477 17 13 17.4477 13 18C13 18.5523 13.4477 19 14 19Z" fill="#050D33"/>
+<rect x="0.5" y="0.5" width="27" height="27" rx="13.5" stroke="white"/>
+</svg>
+
+  </div>
+  <script>
+    (function () {
+      var utils = {
+        debounce(fn, delay) {
+          var timer = null
+
+          return function () {
+            clearTimeout(timer)
+            timer = setTimeout(fn, delay)
+          }
+        },
+        throttle(fn, delay) {
+          var inThrottle = false
+
+          return function () {
+            if (!inThrottle) {
+              inThrottle = true
+              fn()
+              setTimeout(() => {
+                inThrottle = false
+              }, delay)
+            }
+          }
+        }
+      }
+      var scrollTimer = null
+
+      window.addEventListener('load', handleLoad)
+      window.addEventListener('scroll', utils.throttle(handleScroll, 1000), { passive: true })
+
+      function handleLoad() {
+        loadImgs()
+        setupTop()
+      }
+
+      function setupTop() {
+        document.querySelector('.top').onclick = function () {
+          window.scrollTo(0, 0)
+        }
+      }
+
+      function handleScroll(e) {
+        clearTimeout(scrollTimer)
+        setTimeout(() => {
+          document.querySelector('.top').classList.add('fade')
+          document.querySelector('.phone').classList.add('fade')
+        }, 3000)
+        document.querySelector('.top').classList.remove('fade')
+        document.querySelector('.phone').classList.remove('fade')
+      }
+
+      function loadImgs() {
+        var container = document.querySelector('.content')
+
+        for (var i = 1; i <= 47; i++) {
+          const imgTag = document.createElement('img')
+          imgTag.src = `imgs/${i}.png`
+          imgTag.style.width = '100%';
+          imgTag.addEventListener('error', () => {
+            imgTag.remove()
+          })
+          container.appendChild(imgTag)
+        }
+      }
+    })()
+  </script>
+</body>
+
+</html>
